@@ -1,0 +1,19 @@
+__pycache__/
+*.pyc
+
+# default --output of claude_opus.py (scratch runs); move finished runs to a
+# named predictions/predictions_<name>/ folder to keep them
+predictions/
+
+# LaTeX build output
+*.aux
+*.log
+*.out
+*.pdf
+*.toc
+*.synctex.gz
+
+preview*.png
+
+# downloaded dataset (hf download ... --local-dir data)
+data/
