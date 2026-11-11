@@ -37,9 +37,15 @@ Nothing is trained: the model is used as-is through the Anthropic API.
 claude_opus.py           # query the API, save predictions, report token usage
 compare_predictions.py   # accuracy / per-group accuracy / tokens of all saved runs
 compound.csv             # smiles,label: the 2000 candidates (label = class index)
+model_outputs/
+  claude-opus-5-5_test_responses.txt  # raw model replies of the leaderboard run
 predictions/
   predictions_<name>/    # one folder per finished run: anthropic_<model>_<split>.jsonl + .npy
 ```
+
+[`model_outputs/claude-opus-5-5_test_responses.txt`](model_outputs/claude-opus-5-5_test_responses.txt)
+holds the model's output strings of the leaderboard run, one line per request (4,615
+requests of 10 images, in the order they were sent).
 
 ## Running the baseline
 
@@ -130,13 +136,3 @@ accuracy, the parse rate, how many different labels
 were predicted, the accuracy per group (poscon / target / Rest, read from the
 split's metadata in `--data-dir`), and the tokens per image. Use `--root` to
 point it at another folder of runs.
-
-The `.npy` can also be scored directly:
-
-```python
-import numpy as np
-
-pred = np.load("predictions/predictions_full/anthropic_claude-opus-5-5_test.npy")
-labels = np.load("<test-split-dir>/test_data_labels.npy")
-accuracy = (pred == labels).mean()
-```
